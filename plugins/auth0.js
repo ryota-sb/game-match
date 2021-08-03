@@ -44,6 +44,11 @@ class Auth0Util {
   setTokenByQuery() {
     this.setToken(this.getQueryParams())
   }
+
+  isAuthenticated() {
+    const expiresAt = window.localStorage.getItem('expiresAt')
+    return new Date().getTime() < expiresAt
+  }
 }
 
 export default (context, inject) => {
