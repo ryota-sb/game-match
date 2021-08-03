@@ -19,6 +19,7 @@ export default {
   css: [
   ],
   plugins: [
+    '~/plugins/auth0.js'
   ],
   components: true,
   buildModules: [
@@ -33,6 +34,19 @@ export default {
   pwa: {
     manifest: {
       lang: 'en'
+    }
+  },
+  auth: {
+    auth0: {
+      domain: 'dev-czgqj68f.jp.auth0.com',
+      client_id: 'rVXyBs93aSmbZHlUYty1Vr3WZ3qk2kRZ',
+      logoutRedirectUri: 'http://localhost:3000'
+    },
+    redirect: {
+      login: '/',
+      logout: '/',
+      callback: '/callback',
+      home: '/home'
     }
   },
   vuetify: {
@@ -53,5 +67,9 @@ export default {
     }
   },
   build: {
+  },
+  server: {
+    host: '0.0.0.0',
+    port: '8000'
   }
 }
