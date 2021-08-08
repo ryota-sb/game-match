@@ -41,6 +41,14 @@ class Auth0Util {
     localStorage.setItem('user', JSON.stringify(jwtDecode(id_token)))
   }
 
+  unSetToken() {
+    const localStorage = window.localStorage
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('idToken')
+    localStorage.removeItem('expiresAt')
+    localStorage.removeItem('user')
+  }
+
   setTokenByQuery() {
     this.setToken(this.getQueryParams())
   }
