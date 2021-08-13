@@ -5,7 +5,7 @@
         <v-card-title>Game Match</v-card-title>
         <div v-if="loggedIn">
           <v-card-text>ログイン中</v-card-text>
-          <v-card-text>{{ getIdToken }}</v-card-text>
+          <v-card-text>{{ getAccessToken }}</v-card-text>
           <v-btn to="/logout" nuxt>ログアウト</v-btn>
         </div>
         <div v-else>
@@ -19,12 +19,15 @@
 
 <script>
 export default {
+  mounted() {
+    console.log(process.env.DOMAIN)
+  },
   computed: {
     loggedIn() {
       return this.$auth0.isAuthenticated()
     },
-    getIdToken() {
-      return window.localStorage.getItem('idToken')
+    getAccessToken() {
+      return window.localStorage.getItem('accessToken')
     }
   }
 }

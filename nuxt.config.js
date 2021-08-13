@@ -26,36 +26,28 @@ export default {
     '@nuxtjs/vuetify',
   ],
   modules: [
+    '@nuxtjs/dotenv',
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/auth',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
   ],
-  proxy: {
-    '/api': {
-      target: 'http://localhost:8000',
-      pathRewrite: {
-        '^/api': '/'
-      }
-    }
+  // proxy: {
+  //   '/api/': {
+  //     target: 'http://localhost:3000',
+  //     pathRewrite: { '^/api/': '' }
+  //   }
+  // },
+  auth0: {
+    domain: process.env.DOMAIN,
+    client_id: process.env.CLIENT_ID,
+    audience: process.env.AUDIENCE
   },
-  axios: {},
+  axios: {
+  },
   pwa: {
     manifest: {
       lang: 'en'
-    }
-  },
-  auth: {
-    auth0: {
-      domain: 'dev-czgqj68f.jp.auth0.com',
-      client_id: 'rVXyBs93aSmbZHlUYty1Vr3WZ3qk2kRZ',
-      logoutRedirectUri: 'http://localhost:3000'
-    },
-    redirect: {
-      login: '/',
-      logout: '/',
-      callback: '/callback',
-      home: '/home'
     }
   },
   vuetify: {
