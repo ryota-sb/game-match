@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode'
 import queryString from 'query-string'
 import nuxtConfig from '~/nuxt.config'
 
-const config = nuxtConfig.auth.auth0
+const config = nuxtConfig.auth0
 
 class Auth0Util {
   showLock(container) {
@@ -14,6 +14,7 @@ class Auth0Util {
         container,
         closable: false,
         auth: {
+          audience: config.audience,
           responseType: 'token id_token',
           redirectUrl: this.getBaseUrl() + '/callback',
           params: {
@@ -22,6 +23,7 @@ class Auth0Util {
         }
       }
     )
+    console.log(config.domain)
     lock.show()
   }
 
