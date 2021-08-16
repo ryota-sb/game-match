@@ -2,10 +2,8 @@
   <v-row>
     <v-col>
       <v-card>
-        <v-card-title>Game Match</v-card-title>
         <div v-if="loggedIn">
           <v-card-text>ログイン中</v-card-text>
-          <v-card-text>{{ getAccessToken }}</v-card-text>
           <v-btn to="/logout" nuxt>ログアウト</v-btn>
         </div>
         <div v-else>
@@ -20,14 +18,11 @@
 <script>
 export default {
   mounted() {
-    console.log(process.env.DOMAIN)
+    console.log(this.$store.state.auth)
   },
   computed: {
     loggedIn() {
       return this.$auth0.isAuthenticated()
-    },
-    getAccessToken() {
-      return window.localStorage.getItem('accessToken')
     }
   }
 }
