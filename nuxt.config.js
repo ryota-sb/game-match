@@ -32,16 +32,14 @@ export default {
     '@nuxtjs/auth',
     '@nuxtjs/proxy',
   ],
-  // proxy: {
-  //   '/api/': {
-  //     target: 'http://localhost:3000',
-  //     pathRewrite: { '^/api/': '' }
-  //   }
-  // },
-  auth0: {
-    domain: process.env.DOMAIN,
-    client_id: process.env.CLIENT_ID,
-    audience: process.env.AUDIENCE
+  auth:{
+    strategies: {
+      auth0: {
+        domain: process.env.DOMAIN,
+        client_id: process.env.CLIENT_ID,
+        audience: process.env.AUDIENCE
+      }
+    },
   },
   axios: {
   },
