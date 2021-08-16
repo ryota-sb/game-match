@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode'
 import queryString from 'query-string'
 import nuxtConfig from '~/nuxt.config'
 
-const config = nuxtConfig.auth0
+const config = nuxtConfig.auth.strategies.auth0
 
 class Auth0Util {
   showLock(container) {
@@ -23,7 +23,6 @@ class Auth0Util {
         }
       }
     )
-    console.log(config.domain)
     lock.show()
   }
 
@@ -33,6 +32,10 @@ class Auth0Util {
 
   getQueryParams() {
     return queryString.parse(location.hash)
+  }
+
+  getAccessToken() {
+    return this.isAuthenticated() ? window.localStorage.getItem('accessToken') : null
   }
 
   setToken({access_token, id_token, expires_in}) {
