@@ -18,6 +18,7 @@
 
 <script>
 export default {
+  middleware: 'auth',
   data() {
     return {
       discord_id: null,
