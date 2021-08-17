@@ -19,7 +19,8 @@ export default {
   css: [
   ],
   plugins: [
-    '~/plugins/auth0.js'
+    '~/plugins/auth0.js',
+    { src: '~/plugins/persistedstate.js', ssr: false }
   ],
   components: true,
   buildModules: [
