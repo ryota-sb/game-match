@@ -10,7 +10,7 @@
 export default {
   mounted() {
     this.$auth0.unSetToken()
-    this.$store.dispatch('logOut')
+    this.$store.dispatch('authentication/logOut')
     this.$router.replace('/')
   }
 }

@@ -4,6 +4,7 @@
       <v-card>
         <div v-if="loggedIn">
           <v-card-text>ログイン中</v-card-text>
+          <v-card-text>{{ this.$auth0.getAccessToken() }}</v-card-text>
           <v-btn to="/logout" nuxt>ログアウト</v-btn>
         </div>
         <div v-else>
@@ -18,7 +19,7 @@
 <script>
 export default {
   mounted() {
-    console.log(this.$store.state.isAuth)
+    console.log(this.$store.state.authentication.isAuth)
   },
   computed: {
     loggedIn() {

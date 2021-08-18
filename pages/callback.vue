@@ -6,7 +6,7 @@
 export default {
   mounted() {
     this.$auth0.setTokenByQuery()
-    this.$store.dispatch('logIn')
+    this.$store.dispatch('authentication/logIn')
     this.login()
     this.$router.replace('/')
   },
