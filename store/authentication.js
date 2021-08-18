@@ -12,10 +12,10 @@ const mutations = {
 }
 
 const actions = {
-  logIn({commit}) {
+  logIn({ commit }) {
     commit('login')
   },
-  logOut({commit}) {
+  logOut({ commit }) {
     commit('logout')
   }
 }
