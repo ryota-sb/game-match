@@ -32,9 +32,7 @@ export default {
         discord_id: this.discord_id,
         message: this.message
       }
-      const headers = {
-        Authorization: `Bearer ${this.$auth0.getAccessToken()}`
-      }
+      const headers = { Authorization: `Bearer ${this.$auth0.getAccessToken()}` }
       await this.$axios.post(uri, params, { headers: headers }).then(res => {
         console.log(res)
       }).catch(err => {
