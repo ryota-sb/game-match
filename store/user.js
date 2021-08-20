@@ -1,14 +1,14 @@
 const state = () => ({
-  user: null
+  user: null,
+  other_user: null
 })
-
-const getters = {
-  user: state => state.user
-}
 
 const mutations = {
   setUser(state, payload) {
     state.user = payload
+  },
+  setOtherUser(state, payload) {
+    state.other_user = payload
   }
 }
 
@@ -17,6 +17,14 @@ const actions = {
     const uri = `http://localhost:3000/api/v1/users/${userId}`
     await this.$axios.get(uri, { headers: headers }).then(res => {
       commit('setUser', res.data)
+    }).catch(err => {
+      console.log(err)
+    })
+  },
+  async getOtherUser({ commit }, { headers }) {
+    const uri = "http://localhost:3000/api/v1/users"
+    await this.$axios.get(uri, { headers: headers }).then(res => {
+      commit('setOtherUser', res.data)
     }).catch(err => {
       console.log(err)
     })
