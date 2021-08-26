@@ -2,6 +2,12 @@
   <v-row>
     <v-col>
       <v-form>
+        <v-file-input
+          accept="image/*"
+          label="プロフィール画像の選択"
+          @change="imagePicked"
+        />
+        <v-img v-if="uploadImageUrl" :src="uploadImageUrl" />
         <v-text-field
           v-model="discord_id"
           label="自分のディスコードID"
@@ -22,7 +28,8 @@ export default {
   data() {
     return {
       discord_id: null,
-      message: null
+      message: null,
+      uploadImageUrl: ''
     }
   },
   methods: {
@@ -38,6 +45,20 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    },
+    imagePicked(file) {
+      if (file !== undefined && file !== null) {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader()
+        fr.readAsDataURL(file)
+        fr.addEventListener('load', () => {
+          this.uploadImageUrl = fr.result
+        })
+      } else {
+        this.uploadImageUrl = ''
+      }
     }
   }
 }
