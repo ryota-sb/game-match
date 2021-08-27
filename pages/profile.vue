@@ -7,7 +7,12 @@
           label="プロフィール画像の選択"
           @change="imagePicked"
         />
-        <v-img v-if="uploadImageUrl" :src="uploadImageUrl" />
+        <v-img 
+          v-if="uploadImageUrl"
+          :src="uploadImageUrl"
+          max-width="150"
+          max-height="150"
+        />
         <v-text-field
           v-model="discord_id"
           label="自分のディスコードID"
@@ -29,7 +34,7 @@ export default {
     return {
       discord_id: null,
       message: null,
-      uploadImageUrl: ''
+      uploadImageUrl: null
     }
   },
   methods: {
@@ -37,7 +42,8 @@ export default {
       const uri = 'http://localhost:3000/api/v1/profiles'
       const params = {
         discord_id: this.discord_id,
-        message: this.message
+        message: this.message,
+        image: this.uploadImageUrl
       }
       const headers = { Authorization: `Bearer ${this.$auth0.getAccessToken()}` }
       await this.$axios.post(uri, params, { headers: headers }).then(res => {
@@ -55,9 +61,10 @@ export default {
         fr.readAsDataURL(file)
         fr.addEventListener('load', () => {
           this.uploadImageUrl = fr.result
+          console.log(this.uploadImageUrl)
         })
       } else {
-        this.uploadImageUrl = ''
+        this.uploadImageUrl = null
       }
     }
   }
