@@ -61,7 +61,6 @@ export default {
         fr.readAsDataURL(file)
         fr.addEventListener('load', () => {
           this.uploadImageUrl = fr.result
-          console.log(this.uploadImageUrl)
         })
       } else {
         this.uploadImageUrl = null
