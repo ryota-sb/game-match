@@ -5,11 +5,12 @@
         <v-file-input
           accept="image/*"
           label="プロフィール画像の選択"
-          @change="imagePicked"
+          v-model="image"
+          @change="setImage"
         />
         <v-img 
-          v-if="uploadImageUrl"
-          :src="uploadImageUrl"
+          v-if="imageUrl"
+          :src="imageUrl"
           max-width="150"
           max-height="150"
         />
@@ -34,36 +35,30 @@ export default {
     return {
       discord_id: null,
       message: null,
-      uploadImageUrl: null
+      image: null,
+      imageUrl: null
     }
   },
   methods: {
     async createProfile() {
       const uri = 'http://localhost:3000/api/v1/profiles'
-      const params = {
-        discord_id: this.discord_id,
-        message: this.message,
-        image: this.uploadImageUrl
-      }
-      const headers = { Authorization: `Bearer ${this.$auth0.getAccessToken()}` }
-      await this.$axios.post(uri, params, { headers: headers }).then(res => {
+      const formData = new FormData()
+      formData.append('image', this.image)
+      formData.append('message', this.message)
+      formData.append('discord_id', this.discord_id)
+      const headers = { "content-type":"multipart/form-data", Authorization: `Bearer ${this.$auth0.getAccessToken()}` }
+      await this.$axios.post(uri, formData, { headers: headers }).then(res => {
         console.log(res)
       }).catch(err => {
         console.log(err)
       })
     },
-    imagePicked(file) {
-      if (file !== undefined && file !== null) {
-        if (file.name.lastIndexOf('.') <= 0) {
-          return
-        }
-        const fr = new FileReader()
-        fr.readAsDataURL(file)
-        fr.addEventListener('load', () => {
-          this.uploadImageUrl = fr.result
-        })
+    setImage(e) {
+      this.image = e
+      if (this.image) {
+        this.imageUrl = URL.createObjectURL(this.image)
       } else {
-        this.uploadImageUrl = null
+        this.imageUrl = null
       }
     }
   }
